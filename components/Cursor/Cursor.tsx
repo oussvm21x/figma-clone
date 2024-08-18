@@ -9,15 +9,20 @@ type Props = {
 
 const Cursor = ( {color  , x , y ,  message}:Props ) => {
 
-  console.log('rendering this message', message)
+  console.log('rendering this message', message )
   return (
     <div className='pointer-events-none absolute top-0 left-0' style={{ transform: `translate(${x}px, ${y}px)` }} >
 
         <CursorSVG color={color} />
         { message && (
-          <div>
-            <p>{message}</p>
-          </div>
+          <div
+          className="absolute top-5 left-2 rounded-3xl px-4 py-2"
+          style={{ backgroundColor: color, borderRadius: 20 }}
+        >
+          <p className="whitespace-nowrap text-sm leading-relaxed text-white">
+            {message}
+          </p>
+        </div>
         )
       }
     </div>

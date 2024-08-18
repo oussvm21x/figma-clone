@@ -1,22 +1,26 @@
 import CursorSVG from '@/public/assets/CursorSVG'
-import { CursorChatProps, CursorMode } from '@/types/type'
+import { CursorChatProps, CursorMode, CursorState } from '@/types/type'
 import React from 'react'
 
 //
 const CursorsChat = ({ cursor,cursorState,setCursorState,updateMyPresence} : CursorChatProps) => {
   const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-    
-    setCursorState({mode : CursorMode.Chat , previousMessage : null , message : event.target.value});
     updateMyPresence({message : event.target.value});
+    setCursorState({
+      mode: CursorMode.Chat,
+      previousMessage: null,
+      message: event.target.value,
+    });
   }
   const handleKeyDown = (event : React.KeyboardEvent<HTMLInputElement>) => {
     if(event.key === 'Enter'){
       console.log('Enter pressed, sending message:', cursorState.message);
-      setCursorState({mode : CursorMode.Chat , previousMessage : cursorState.message , message : ""});
+      
+      setCursorState({mode : CursorMode.Chat , message : "" ,previousMessage : cursorState.message });
     }
     else if(event.key === 'Escape'){
       console.log('Escape pressed, hiding message');
-      setCursorState({mode : CursorMode.Hidden , previousMessage : null , message : ""});
+      setCursorState({mode : CursorMode.Hidden });
     }
   }
 
@@ -25,8 +29,8 @@ const CursorsChat = ({ cursor,cursorState,setCursorState,updateMyPresence} : Cur
        { cursorState.mode === CursorMode.Chat && (
         <>
           <CursorSVG color='#000' />
-          <div className='absolute left-2 top-5 bg-blue-500 px-4 py-2 text-sm leading-relaxed text-white rounded-[20px]'>
-            {
+          <div className='absolute left-2 top-5 bg-blue-500 px-4 py-2 text-sm leading-relaxed text-white rounded-[20px] flex flex-col items-start'>
+            { 
               cursorState.previousMessage && (
               <div>{cursorState.previousMessage}</div>
             )
@@ -39,6 +43,7 @@ const CursorsChat = ({ cursor,cursorState,setCursorState,updateMyPresence} : Cur
              onChange={handleChange} 
              placeholder={cursorState.previousMessage ? '' : 'Type a message'}
              maxLength={50}
+             value={cursorState.message}
             />
 
           </div>

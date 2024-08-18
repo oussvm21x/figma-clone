@@ -1,6 +1,8 @@
 import { BaseUserMeta, User } from "@liveblocks/client";
+import fabric  from 'fabric';
 import { Gradient, Pattern } from "fabric/fabric-impl";
-
+import React from 'react';
+import { IEvent } from "fabric/fabric-impl";
 export enum CursorMode {
   Hidden,
   Chat,
@@ -125,7 +127,7 @@ export type LiveCursorProps = {
 };
 
 export type CanvasMouseDown = {
-  options: fabric.IEvent;
+  options: IEvent;
   canvas: fabric.Canvas;
   selectedShapeRef: any;
   isDrawing: React.MutableRefObject<boolean>;
@@ -133,7 +135,7 @@ export type CanvasMouseDown = {
 };
 
 export type CanvasMouseMove = {
-  options: fabric.IEvent;
+  options: IEvent;
   canvas: fabric.Canvas;
   isDrawing: React.MutableRefObject<boolean>;
   selectedShapeRef: any;
@@ -152,23 +154,23 @@ export type CanvasMouseUp = {
 };
 
 export type CanvasObjectModified = {
-  options: fabric.IEvent;
+  options: IEvent;
   syncShapeInStorage: (shape: fabric.Object) => void;
 };
 
 export type CanvasPathCreated = {
-  options: (fabric.IEvent & { path: CustomFabricObject<fabric.Path> }) | any;
+  options: (IEvent & { path: CustomFabricObject<fabric.Path> }) | any;
   syncShapeInStorage: (shape: fabric.Object) => void;
 };
 
 export type CanvasSelectionCreated = {
-  options: fabric.IEvent;
+  options: IEvent;
   isEditingRef: React.MutableRefObject<boolean>;
   setElementAttributes: React.Dispatch<React.SetStateAction<Attributes>>;
 };
 
 export type CanvasObjectScaling = {
-  options: fabric.IEvent;
+  options: IEvent;
   setElementAttributes: React.Dispatch<React.SetStateAction<Attributes>>;
 };
 

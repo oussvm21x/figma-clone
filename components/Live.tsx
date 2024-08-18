@@ -13,8 +13,7 @@ import { CursorMode, CursorState } from '@/types/type';
 
   const [cursorState, setCursorState] = useState<CursorState>({
     mode: CursorMode.Hidden,
-
-});  
+  });
 
   const handlePointerMove = useCallback((event : React.PointerEvent) => {
     
@@ -55,9 +54,7 @@ import { CursorMode, CursorState } from '@/types/type';
   useEffect(() => {
     const onKeyUp = (event : KeyboardEvent) => {
         if (event.key === '/') {
-          console.log("slash pressed")
           setCursorState({mode : CursorMode.Chat , previousMessage : null , message : ""});
-          updateMyPresence({cursor: null , message : null}); 
         }
         else if(event.key === 'Escape'){
           setCursorState({mode : CursorMode.Hidden});
@@ -92,9 +89,9 @@ import { CursorMode, CursorState } from '@/types/type';
       <h1 className="text-5xl text-white ">Figma clone</h1>
       { cursor && (
         <CursorsChat
-          cursor={cursor} 
-          cursorState={setCursorState}
-          setCursorState={cursorState}
+          cursor= {cursor} 
+          cursorState= {cursorState}
+          setCursorState= {setCursorState}
           updateMyPresence = {updateMyPresence}
         />
       )}
