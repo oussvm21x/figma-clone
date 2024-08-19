@@ -3,7 +3,7 @@
 
 import React, { use, useCallback, useEffect, useState } from 'react'
 import LiveCursors from './Cursor/LiveCursors'
-import { useBroadcastEvent, useEventListener, useMyPresence, useOthers } from '@liveblocks/react';
+import { useBroadcastEvent, useEventListener, useMyPresence, useOthers, useSelf } from '@liveblocks/react';
 import CursorsChat from './Cursor/CursorsChat';
 import { CursorMode, CursorState, Reaction, ReactionEvent } from '@/types/type';
 import ReactionSelector from './Reactions/ReactionButton';
@@ -12,6 +12,8 @@ import useInterval from '@/hooks/useInterval';
 //A collection of all live functionalities that we implement in the app
  const Live = () => {
   const others = useOthers(); // this return a list of all other users connected to the app
+  const currentUser = useSelf();
+  const hasMoreUsers = others.length > 3;
   const [{cursor}, updateMyPresence] = useMyPresence() as any  ; 
 
   const [cursorState, setCursorState] = useState<CursorState>({
@@ -149,8 +151,9 @@ import useInterval from '@/hooks/useInterval';
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       onPointerUp={handlePointerUp}
-      className='h-[100vh] w-full flex justify-center items-center text-center border-4 border-white'
+      className='h-[100vh] w-full flex justify-center items-center text-center '
     >
+      
       <h1 className="text-5xl text-white ">Figma clone</h1>
       {
         reaction.map((reaction) => (
