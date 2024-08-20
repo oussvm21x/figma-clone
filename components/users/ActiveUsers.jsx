@@ -13,6 +13,8 @@ const ActiveUsers = () => {
     return (
       <div className="flex justify-center items-center ">
         <div className="flex pl-3 ">
+          {console.log("current user : " + currentUser)}
+          {console.log("all user : " + users)}
           {currentUser && (
             <Avatar
               name="You"
@@ -28,7 +30,6 @@ const ActiveUsers = () => {
               />
             );
           })}
-
           {hasMoreUsers && (
             <div className={styles.more}>+{users.length - 3}</div>
           )}

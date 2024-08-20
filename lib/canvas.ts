@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+import * as fabric  from "fabric";
 import { v4 as uuid4 } from "uuid";
 
 import {
@@ -22,11 +22,13 @@ export const initializeFabric = ({
   fabricRef: React.MutableRefObject<fabric.Canvas | null>;
   canvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
 }) => {
+  
   // get canvas element
   const canvasElement = document.getElementById("canvas");
 
+
   // create fabric canvas
-  const canvas = new fabric.Canvas(canvasRef.current, {
+  const canvas = new fabric.Canvas(canvasRef.current!, {
     width: canvasElement?.clientWidth,
     height: canvasElement?.clientHeight,
   });
@@ -46,7 +48,7 @@ export const handleCanvasMouseDown = ({
   shapeRef,
 }: CanvasMouseDown) => {
   // get pointer coordinates
-  const pointer = canvas.getPointer(options.e);
+  const pointer = canvas.getScenePoint(options.e);
 
   /**
    * get target object i.e., the object that is clicked

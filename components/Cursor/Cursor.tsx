@@ -9,7 +9,6 @@ type Props = {
 
 const Cursor = ( {color  , x , y ,  message}:Props ) => {
 
-  console.log('rendering this message', message )
   return (
     <div className='pointer-events-none absolute top-0 left-0' style={{ transform: `translate(${x}px, ${y}px)` }} >
 

@@ -10,7 +10,11 @@ import ReactionSelector from './Reactions/ReactionButton';
 import FlyingReaction from './Reactions/FyilngReactions';
 import useInterval from '@/hooks/useInterval';
 //A collection of all live functionalities that we implement in the app
- const Live = () => {
+
+type Props = {
+  canvasRef : React.MutableRefObject<HTMLCanvasElement  | null>
+}
+ const Live = ({canvasRef} : Props) => {
   const others = useOthers(); // this return a list of all other users connected to the app
   const currentUser = useSelf();
   const hasMoreUsers = others.length > 3;
@@ -116,14 +120,19 @@ import useInterval from '@/hooks/useInterval';
 
   useEffect(() => {
     const onKeyUp = (event : KeyboardEvent) => {
+      
         if (event.key === '/') {
-          setCursorState({mode : CursorMode.Chat , previousMessage : null , message : ""});
+          setCursorState({mode : CursorMode.Chat , previousMessage : null , message : ""})
+          
         }
         else if(event.key === 'Escape'){
           setCursorState({mode : CursorMode.Hidden});
           updateMyPresence({message : ""}); 
         }
         else if (event.key === "e" || event.key === "E") {
+          if (cursorState.mode === CursorMode.Chat) {
+            return
+          }
           setCursorState({ mode: CursorMode.ReactionSelector });
       }
     }
@@ -147,14 +156,16 @@ import useInterval from '@/hooks/useInterval';
 
   return (
     <div
+    id = "canvas"
       onPointerDown={ handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       onPointerUp={handlePointerUp}
-      className='h-[100vh] w-full flex justify-center items-center text-center '
-    >
+      className='h-[100vh] w-full flex justify-center items-center text-center  border-2 border-white'
       
-      <h1 className="text-5xl text-white ">Figma clone</h1>
+    >
+      <canvas ref = {canvasRef}  />
+      
       {
         reaction.map((reaction) => (
           <FlyingReaction

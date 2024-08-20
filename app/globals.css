@@ -8,6 +8,8 @@
   font-family:
     work sans,
     sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 @layer utilities {
